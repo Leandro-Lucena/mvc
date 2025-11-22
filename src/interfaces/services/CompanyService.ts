@@ -1,5 +1,5 @@
-import { CreateCompanyDTO } from "../models/company/dtos/CreateCompanyDTO";
-import { UpdateCompanyDTO } from "../models/company/dtos/UpdateCompanyDTO";
+import { CreateCompanyDTO } from "../../modules/company/dtos/CreateCompanyDTO";
+import { UpdateCompanyDTO } from "../../modules/company/dtos/UpdateCompanyDTO";
 
 export interface CompanyService {
   create(createCompanyDTO: CreateCompanyDTO): Promise<any>;

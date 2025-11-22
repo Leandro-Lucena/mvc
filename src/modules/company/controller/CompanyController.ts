@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { validateCreateCompany } from "../validators/validateCreateCompany";
-import { CompanyService } from "../../../interfaces/CompanyService";
+import { CompanyService } from "../../../interfaces/services/CompanyService";
 import { responseSuccess } from "../../../shared/helpers/responseSuccess";
 import { validateCNPJ } from "../validators/validateCNPJ";
 import { validateId } from "../validators/validateId";
