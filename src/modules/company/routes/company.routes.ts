@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { CompanyController } from "../controller/CompanyController";
 import { errorHandler } from "../../../shared/errors/errorHandle";
+import { CompanyServiceImpl } from "../services/CompanyService";
 
 const router = Router();
 
-const companyController = new CompanyController();
+const companyService = new CompanyServiceImpl();
+const companyController = new CompanyController(companyService);
 
 router.post("/", (req, res, next) => companyController.create(req, res, next));
 router.get("/", (req, res, next) => companyController.findAll(req, res, next));
