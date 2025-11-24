@@ -2,14 +2,17 @@ import { Router } from "express";
 import { EmployeeController } from "../controllers/EmployeeController";
 import { EmployeeServiceImpl } from "../services/EmployeeService";
 import { CompanyServiceImpl } from "../../company/services/CompanyService";
-import { EmployeeRepository } from "../../../interfaces/repositories/EmployeeRepository";
+import { InMemoryEmployeeRepository } from "../repositories/InMemoryEmployeeRepository";
 
 const router = Router();
 
-const employeeRepository = new EmployeeRepository();
 const companyService = new CompanyServiceImpl(employeeRepository);
 
-const employeeService = new EmployeeServiceImpl(null, companyService);
+const employeeRepository = new InMemoryEmployeeRepository();
+const employeeService = new EmployeeServiceImpl(
+  employeeRepository,
+  companyService
+);
 const employeeController = new EmployeeController(employeeService);
 
 router.post("/employee", employeeController.create);

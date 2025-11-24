@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { AppError } from "../../../shared/errors/AppError";
-import { UpdateEmployeeDTO } from "../dtos/UpdateEmpolyeeDTO";
+import { UpdateEmployeeDTO } from "../dtos/UpdateEmployeeDTO";
 
 const updateEmployeeSchema = z.object({
   position: z.string().nonempty("Position is required"),

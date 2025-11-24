@@ -1,5 +1,5 @@
 import { CreateEmployeeDTO } from "../../modules/employee/dtos/CreateEmployeeDTO";
-import { UpdateEmployeeDTO } from "../../modules/employee/dtos/UpdateEmpolyeeDTO";
+import { UpdateEmployeeDTO } from "../../modules/employee/dtos/UpdateEmployeeDTO";
 import { Employee } from "../../modules/employee/models/Employee";
 
 export interface EmployeeService {

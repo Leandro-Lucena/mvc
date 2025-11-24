@@ -7,7 +7,7 @@ import {
 } from "../../../shared/errors/AppError";
 import { DocumentValidator } from "../../../shared/utils/documentValidator";
 import { CreateEmployeeDTO } from "../dtos/CreateEmployeeDTO";
-import { UpdateEmployeeDTO } from "../dtos/UpdateEmpolyeeDTO";
+import { UpdateEmployeeDTO } from "../dtos/UpdateEmployeeDTO";
 import { Employee } from "../models/Employee";
 
 export class EmployeeServiceImpl implements EmployeeService {
