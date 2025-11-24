@@ -1,26 +1,38 @@
 import { Router } from "express";
-import { CompanyController } from "../controller/CompanyController";
-import { errorHandler } from "../../../shared/errors/errorHandle";
 import { CompanyServiceImpl } from "../services/CompanyService";
+import { InMemoryCompanyRepository } from "../repositories/InMemoryCompanyRepository";
+import { CompanyController } from "../controller/CompanyController";
+import { asyncHandler } from "../../../shared/errors/errorHandler";
 
 const router = Router();
 
-const companyService = new CompanyServiceImpl();
+const companyRepository = new InMemoryCompanyRepository();
+const companyService = new CompanyServiceImpl(companyRepository);
 const companyController = new CompanyController(companyService);
 
-router.post("/", (req, res, next) => companyController.create(req, res, next));
-router.get("/", (req, res, next) => companyController.findAll(req, res, next));
-router.get("/:id", (req, res, next) =>
-  companyController.findById(req, res, next)
+router.post(
+  "/companies",
+  asyncHandler(companyController.create.bind(companyController))
 );
-router.get("/cnpj/:cnpj", (req, res, next) =>
-  companyController.findByCNPJ(req, res, next)
+router.get(
+  "/companies",
+  asyncHandler(companyController.findAll.bind(companyController))
 );
-router.put("/:id", (req, res, next) =>
-  companyController.update(req, res, next)
+router.get(
+  "/companies/:id",
+  asyncHandler(companyController.findById.bind(companyController))
 );
-router.delete("/:id", (req, res, next) =>
-  companyController.delete(req, res, next)
+router.get(
+  "/companies/cnpj/:cnpj",
+  asyncHandler(companyController.findByCNPJ.bind(companyController))
+);
+router.put(
+  "/companies/:id",
+  asyncHandler(companyController.update.bind(companyController))
+);
+router.delete(
+  "/companies/:id",
+  asyncHandler(companyController.delete.bind(companyController))
 );
 
-router.use(errorHandler);
+export default router;

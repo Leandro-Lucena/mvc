@@ -5,9 +5,8 @@ import { UpdateEmployeeDTO } from "../dtos/UpdateEmployeeDTO";
 import { Employee } from "../models/Employee";
 import { v4 as uuidv4 } from "uuid";
 
+let employees: Employee[] = [];
 export class InMemoryEmployeeRepository implements EmployeeRepository {
-  private employees: Employee[] = [];
-
   constructor() {}
 
   async create(createEmployeeDTO: CreateEmployeeDTO): Promise<Employee> {
@@ -17,7 +16,7 @@ export class InMemoryEmployeeRepository implements EmployeeRepository {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-    this.employees.push(newEmployee);
+    employees.push(newEmployee);
     return newEmployee;
   }
 
@@ -25,39 +24,33 @@ export class InMemoryEmployeeRepository implements EmployeeRepository {
     id: string,
     updatedEmployeeDTO: UpdateEmployeeDTO
   ): Promise<Employee> {
-    const employeeIndex = this.employees.findIndex(
-      (employee) => employee.id === id
-    );
+    const employeeIndex = employees.findIndex((employee) => employee.id === id);
     if (employeeIndex === -1) {
       throw new NotFoundError("Employee not found");
     }
     const updatedEmployee = {
-      ...this.employees[employeeIndex],
+      ...employees[employeeIndex],
       ...updatedEmployeeDTO,
       updatedAt: new Date(),
     };
-    this.employees[employeeIndex] = updatedEmployee;
+    employees[employeeIndex] = updatedEmployee;
     return updatedEmployee;
   }
 
   async delete(id: string): Promise<void> {
-    const employeeIndex = this.employees.findIndex(
-      (employee) => employee.id === id
-    );
+    const employeeIndex = employees.findIndex((employee) => employee.id === id);
     if (employeeIndex === -1) {
       throw new NotFoundError("Employee not found");
     }
-    this.employees.splice(employeeIndex, 1);
+    employees.splice(employeeIndex, 1);
   }
 
   async findByCompanyId(companyId: string): Promise<Employee[]> {
-    return this.employees.filter(
-      (employee) => employee.companyId === companyId
-    );
+    return employees.filter((employee) => employee.companyId === companyId);
   }
 
   async findById(id: string): Promise<Employee> {
-    const employee = this.employees.find((employee) => employee.id === id);
+    const employee = employees.find((employee) => employee.id === id);
     if (!employee) {
       throw new NotFoundError("Employee not found");
     }

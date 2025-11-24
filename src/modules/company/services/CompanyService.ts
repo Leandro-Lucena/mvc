@@ -50,7 +50,10 @@ export class CompanyServiceImpl implements CompanyService {
       throw new NotFoundError("Company not found");
     }
 
-    if (existingCompany.cnpj !== updateCompanyDTO.cnpj) {
+    if (
+      updateCompanyDTO.cnpj &&
+      existingCompany.cnpj !== updateCompanyDTO.cnpj
+    ) {
       if (!DocumentValidator.validateCNPJ(updateCompanyDTO.cnpj)) {
         throw new BadRequestError("Invalid CNPJ");
       }
